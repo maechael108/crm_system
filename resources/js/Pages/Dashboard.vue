@@ -5,6 +5,7 @@ import Menubar from 'primevue/menubar';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';   // optional
+import Card from 'primevue/card';
 </script>
 
 <template>
@@ -13,20 +14,18 @@ import ColumnGroup from 'primevue/columngroup';   // optional
 
     <AuthenticatedLayout>
         <template #header> 
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>
-         </template>
-       
-        <div class="py-12">
-            <div>
-                <DataTable :value="products" tableStyle="min-width: 50rem">
+            <!-- <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2> -->
+            <DataTable :value="products" tableStyle="min-width: 50rem">
                   <Column field="code" header="Code"></Column>
                   <Column field="name" header="Name"></Column>
                   <Column field="category" header="Category"></Column>
                   <Column field="quantity" header="Quantity"></Column>
                 </DataTable>
-    
-            </div>
-        </div>
+         </template>
+       
+        <!-- <div class="py-12">
+              
+        </div> -->
     </AuthenticatedLayout>
 </template>
 <script>
