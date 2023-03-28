@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\ProfileController;
+use App\Models\JobPosting;
+use App\Models\Post;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +30,23 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $model = Post::all(['id', 'title', 'created_at', 'updated_at']);
+    return Inertia::render('Dashboard', ['model' =>$model]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+Route::get('/info', function () {
+    $model = (new Post)->getAllPosts();
+    return view('info', ['model' => $model]);
+});
+
+Route::get('/job_posting', [JobPostingController::class, 'index'])->name('job_posting.index');
+Route::get('/admin', function(){
+    return view('admin');
 });
 
 require __DIR__.'/auth.php';
